@@ -36,14 +36,6 @@ The lighting runs on each player's own client. No light blocks are placed in the
 Known limit: the light is distance-based and doesn't flow around walls, so it can bleed through
 thin walls within its radius. This works the same way as other dynamic-light mods.
 
-## Building
-
-```
-./gradlew build
-```
-
-The jar is written to `build/libs/torch_slot-1.0.0.jar`.
-
 ## License
 
 [Apache License 2.0](LICENSE)
