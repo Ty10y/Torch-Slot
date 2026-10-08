@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "com.torchslot.mixin",
+  "mixins": [
+    "InventoryMenuMixin",
+    "ServerGamePacketListenerImplMixin",
+    "SlotAccessor"
+  ],
+  "client": [
+    "client.AbstractContainerScreenAccessor",
+    "client.AbstractRecipeBookScreenAccessor",
+    "client.AbstractRecipeBookScreenMixin",
+    "client.CreativeModeInventoryScreenMixin",
+    "client.EntityRendererMixin",
+    "client.InventoryScreenMixin",
+    "client.LightCoordsUtilMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -1,0 +1,6 @@
+{
+  "torch_slot.slot.light": "Light Slot",
+  "torch_slot.slot.light.hint": "Holds a torch, lantern or other light block",
+  "torch_slot.button.show": "Show light slot",
+  "torch_slot.button.hide": "Hide light slot"
+}

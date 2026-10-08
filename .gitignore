@@ -1,0 +1,15 @@
+.gradle/
+build/
+bin/
+run/
+dist/
+*.log
+.idea/
+*.iml
+eclipse/
+
+# Local working notes
+TODO.md
+
+# Local Claude Code settings
+.claude/
