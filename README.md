@@ -36,6 +36,14 @@ The lighting runs on each player's own client. No light blocks are placed in the
 Known limit: the light is distance-based and doesn't flow around walls, so it can bleed through
 thin walls within its radius. This works the same way as other dynamic-light mods.
 
+## Compatibility
+
+Play-tested in a 30-mod NeoForge 26.3 modpack, working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## License
 
 [Apache License 2.0](LICENSE)

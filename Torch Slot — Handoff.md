@@ -17,9 +17,9 @@ where the risky parts are, and how to test and release it. For copy-paste store/
 
 ## Status
 
-- Source is pushed to `main` (commit `796ca35`).
-- It compiles. Every mixin was checked in a dev client by force-loading all mixin targets, with no errors.
-- **Not yet play-tested in-game.** Use the [test checklist](#test-checklist) before the first release.
+- Source is on `main` at https://github.com/Ty10y/Torch-Slot.
+- Every mixin was checked in a dev client by force-loading all mixin targets, with no errors.
+- **Play-tested** (v1.0.1) in the dev world and in a 30-mod CurseForge modpack on NeoForge 26.3.0.57, working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks. Use the [test checklist](#test-checklist) again after bigger changes.
 - v1.0.0 is released. v1.0.1 (the "+" and recipe book now take turns) is ready to release; the jar builds to `build/libs/torch_slot-1.0.1.jar`.
 - Version history is in [CHANGELOG.md](CHANGELOG.md).
 
@@ -248,7 +248,7 @@ docs/images/                                   UI mockups used in this doc
 |---|---|
 | **Light passes through walls** | The light uses straight-line distance and doesn't flood-fill, so it can light the far side of a thin wall within range. Other dynamic-light mods (LambDynamicLights and similar) behave the same way. Fixing it would need a per-tick flood fill around each light. |
 | **Re-meshing cost** | A lit player moving re-meshes up to about 27 chunk sections per tick (async). Fine on modern PCs. Several lit players bunched together, or flying fast, will cost more. If it becomes a problem: raise `REBUILD_DISTANCE_SQR`, add a client config, or rebuild only sections that actually changed. |
-| **Mod compatibility** | Sodium/Embeddium-style renderers replace chunk meshing and may never call `LightCoordsUtil`. In that case terrain wouldn't light up, though entity lighting would still work. Other dynamic-light mods would double up. Other mods that also add slots to `InventoryMenu` could clash over index 46. |
+| **Mod compatibility** | Play-tested working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks. Sodium replaces chunk meshing, so if a future Sodium version stops calling `LightCoordsUtil`, terrain lighting is the first thing to check. Other mods that also add slots to `InventoryMenu` could clash over index 46. |
 | **Not visible on the body** | Nothing is drawn on the player model yet. |
 | **Creative edits** | A creative player can put *any* item in the slot through the creative packet path. Harmless, because non-lights give 0 light. |
 | **Window edge** | On very small windows or high GUI scale, the pop-out tab can run off the left edge of the screen. |
@@ -301,7 +301,6 @@ Run `./gradlew runClient`, make a survival world, and check:
 - Light that flows around walls, using a per-tick flood fill.
 - Optional fuel: torches burn out after a while.
 - A keybind to toggle the light without opening the inventory.
-- Support Sodium-family renderers if that's needed.
 
 ## Notes on 26.3 APIs (for future porting)
 

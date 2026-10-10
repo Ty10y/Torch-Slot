@@ -6,6 +6,7 @@
   open, which made the light slot look missing.
 - Clicking **+** while the recipe book is open closes the book and opens the light slot.
 - Opening the recipe book while the light slot is open tucks the slot away.
+- Play-tested in a 30-mod modpack, working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks.
 
 ## 1.0.0
 

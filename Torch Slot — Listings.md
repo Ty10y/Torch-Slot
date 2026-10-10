@@ -95,8 +95,7 @@ Click **−** to tuck the tab away again. In creative mode, the slot is always s
 - Needs to be installed on **both the client and the server**.
 - The light is distance-based, so it can shine through thin walls.
 - Lighting rebuilds nearby chunks as you move. Fine on most PCs, but very large groups of glowing players may cost some FPS.
-- Not tested with Sodium/Embeddium-style renderers. Terrain lighting may not show with them.
-- Don't combine with another dynamic-lights mod.
+- Play-tested in a 30-mod modpack, working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks.
 
 ## Requirements
 
@@ -138,7 +137,7 @@ Torch Slot 1.0.0 — first release
 Requires NeoForge for Minecraft 26.3, on client and server.
 ```
 
-- **Release type:** Release (or Beta until it has been play-tested)
+- **Release type:** Release
 - **Game version:** 26.3
 - **Mod loader:** NeoForge
 - **Environment:** Client and Server
@@ -175,6 +174,9 @@ Small update to how the light slot gets along with the recipe book.
 
 ### Install
 Replace the old `torch_slot` jar in your `mods` folder with `torch_slot-1.0.1.jar`, on both client and server. Your worn light items are kept.
+
+### Compatibility
+Play-tested in a 30-mod NeoForge 26.3 modpack, working alongside Sodium, Iris, LambDynamicLights, ImmediatelyFast, JourneyMap, Jade, Sophisticated Backpacks and Mouse Tweaks.
 ```
 
 ### Release: v1.0.0
@@ -199,7 +201,6 @@ First release of **Torch Slot** for Minecraft 26.3 (NeoForge).
 
 ### Known limits
 - Distance-based light can shine through thin walls.
-- Not tested with Sodium/Embeddium-style renderers.
 ```
 
 ---
@@ -259,11 +260,12 @@ I made a small vanilla-style mod called **Torch Slot**.
 - Works in multiplayer (everyone sees everyone's light)
 - Drops on death unless keepInventory
 - Needs to be on client and server
-- Known limits: distance-based light can shine through thin walls; not tested with Sodium-style renderers
+- Plays nicely with Sodium, Iris and LambDynamicLights (tested in a 30-mod pack)
+- Known limit: distance-based light can shine through thin walls
 
 Source and download: https://github.com/Ty10y/Torch-Slot (Apache-2.0)
 
-Feedback welcome, especially on performance with lots of players and on mod compatibility!
+Feedback welcome, especially on performance with lots of players!
 ```
 
 > r/Minecraft has strict self-promotion rules. Post a clip with a short title there, and put the
@@ -272,7 +274,7 @@ Feedback welcome, especially on performance with lots of players and on mod comp
 ### Discord announcement
 
 ```
-🏮 **Torch Slot 1.0.0 is out!**
+🏮 **Torch Slot 1.0.1 is out!**
 A new light slot next to your chestplate. Drop in a torch, lantern or any light block and you glow, with smooth light that follows you as you move.
 
 • Any light block (and lava buckets)
