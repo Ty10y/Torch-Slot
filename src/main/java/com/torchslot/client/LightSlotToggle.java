@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 class LightSlotToggle extends AbstractButton {
     final InventoryScreen screen;
     private boolean shownOpen;
-    private boolean pressed;
 
     LightSlotToggle(InventoryScreen screen) {
         super(0, 0, LightSlotUi.BUTTON_SIZE, LightSlotUi.BUTTON_SIZE, Component.translatable("torch_slot.button.show"));
@@ -26,7 +25,6 @@ class LightSlotToggle extends AbstractButton {
     void update() {
         AbstractContainerScreenAccessor gui = (AbstractContainerScreenAccessor) this.screen;
         this.setPosition(gui.torchSlot$getLeftPos() + LightSlotUi.BUTTON_X, gui.torchSlot$getTopPos() + LightSlotUi.BUTTON_Y);
-        this.visible = !LightSlotUi.isRecipeBookOpen(this.screen);
         if (this.shownOpen != LightSlotUi.isOpen()) {
             this.refreshLabel();
         }
@@ -39,16 +37,9 @@ class LightSlotToggle extends AbstractButton {
         this.setTooltip(Tooltip.create(label));
     }
 
-    boolean consumeRelease() {
-        boolean was = this.pressed;
-        this.pressed = false;
-        return was;
-    }
-
     @Override
     public void onPress(InputWithModifiers input) {
-        LightSlotUi.toggle();
-        this.pressed = input instanceof MouseButtonEvent;
+        LightSlotUi.toggle(this.screen, input instanceof MouseButtonEvent);
         this.refreshLabel();
     }
 

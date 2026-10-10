@@ -4,6 +4,7 @@ import com.torchslot.LightSlot;
 import com.torchslot.LightSlotContainer;
 import com.torchslot.mixin.client.AbstractContainerScreenAccessor;
 import com.torchslot.mixin.client.AbstractRecipeBookScreenAccessor;
+import com.torchslot.mixin.client.ScreenInvoker;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
@@ -23,8 +24,9 @@ import org.jspecify.annotations.Nullable;
  * The light slot's place in the inventory screens.
  *
  * Survival inventory: a small "+" on the left edge beside the chestplate slot pops out a tab
- * holding the slot, tucked behind the GUI's left edge. The tab hides while the recipe book is
- * open, since the book sits in the same spot.
+ * holding the slot, tucked behind the GUI's left edge. The tab and the recipe book share that
+ * spot, so they take turns: opening the tab closes the book, and opening the book tucks the
+ * tab away.
  * Creative inventory tab: the slot is always shown, mirroring the offhand slot.
  */
 public final class LightSlotUi {
@@ -47,6 +49,10 @@ public final class LightSlotUi {
     /** Whether the tab is popped out. Remembered for the rest of the session. */
     private static boolean open;
     private static @Nullable LightSlotToggle toggle;
+    /** Set when "+" is pressed with the recipe book open; the book is closed on the next frame, outside the click. */
+    private static boolean closeRecipeBookPending;
+    /** Set when "+" is clicked with the mouse, so the matching release is swallowed. */
+    private static boolean swallowRelease;
 
     private LightSlotUi() {}
 
@@ -54,8 +60,12 @@ public final class LightSlotUi {
         return open;
     }
 
-    static void toggle() {
+    static void toggle(InventoryScreen screen, boolean byMouse) {
         open = !open;
+        swallowRelease = byMouse;
+        if (open && isRecipeBookOpen(screen)) {
+            closeRecipeBookPending = true;
+        }
     }
 
     /** Backs {@link LightSlot#clientVisible}. */
@@ -125,8 +135,24 @@ public final class LightSlotUi {
         }
     }
 
-    /** Keeps the "+" glued to the GUI, which moves when the recipe book opens or closes. */
+    /**
+     * Runs before each frame: closes the recipe book if the "+" asked for it, tucks the tab away
+     * if the book was opened, and keeps the "+" glued to the GUI (which moves with the book).
+     */
     static void onScreenRender(Screen screen) {
+        if (!(screen instanceof InventoryScreen inventoryScreen)) {
+            return;
+        }
+        if (closeRecipeBookPending) {
+            closeRecipeBookPending = false;
+            if (isRecipeBookOpen(inventoryScreen)) {
+                ((AbstractRecipeBookScreenAccessor) inventoryScreen).torchSlot$getRecipeBookComponent().toggleVisibility();
+                // Re-run init so the GUI, recipe button and our "+" move back to their book-closed spots.
+                ((ScreenInvoker) inventoryScreen).torchSlot$rebuildWidgets();
+            }
+        } else if (open && isRecipeBookOpen(inventoryScreen)) {
+            open = false;
+        }
         if (toggle != null && toggle.screen == screen) {
             toggle.update();
         }
@@ -134,7 +160,9 @@ public final class LightSlotUi {
 
     /** A release right after pressing the "+" must not count as a click on the inventory (it would drop the carried item). */
     static boolean consumeToggleRelease(Screen screen) {
-        return toggle != null && toggle.screen == screen && toggle.consumeRelease();
+        boolean swallow = swallowRelease && screen instanceof InventoryScreen;
+        swallowRelease = false;
+        return swallow;
     }
 
     /** Names the empty slot on hover, so players know what it is for. */

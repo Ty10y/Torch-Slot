@@ -5,7 +5,7 @@ Copy-paste text for CurseForge, GitHub and social media. Technical details are i
 
 > **Before posting:** the images in `docs/images/` are mockups. Swap in real in-game screenshots
 > and a short clip (see the [shot list](#screenshot-and-clip-shot-list)) before the store page
-> goes live. Everything below only claims what the mod actually does in v1.0.0.
+> goes live. Everything below only claims what the mod actually does in v1.0.1.
 
 ## Quick facts
 
@@ -13,7 +13,7 @@ Copy-paste text for CurseForge, GitHub and social media. Technical details are i
 |---|---|
 | Name | Torch Slot |
 | Tagline | Finally some convenient mobile lighting! |
-| Version | 1.0.0 |
+| Version | 1.0.1 |
 | Minecraft | 26.3 (Java) |
 | Loader | NeoForge |
 | Environment | Client **and** server |
@@ -111,6 +111,20 @@ Click **−** to tuck the tab away again. In creative mode, the slot is always s
 
 ### File upload: release notes and changelog field
 
+**v1.0.1**
+
+```
+Torch Slot 1.0.1
+
+- The + button beside the chestplate is now always visible, even with the recipe book open
+- Clicking + while the recipe book is open closes the book and opens the light slot
+- Opening the recipe book while the light slot is open tucks the slot away
+
+Requires NeoForge for Minecraft 26.3, on client and server.
+```
+
+**v1.0.0**
+
 ```
 Torch Slot 1.0.0 — first release
 
@@ -145,6 +159,22 @@ A Minecraft mod (NeoForge 26.3) that adds an armor slot for torches and lanterns
 
 ```
 minecraft  minecraft-mod  neoforge  dynamic-lights  java  lighting  minecraft-26
+```
+
+### Release: v1.0.1
+
+**Tag:** `v1.0.1`, **Title:** `Torch Slot 1.0.1`, **Attach:** `torch_slot-1.0.1.jar`
+
+```markdown
+Small update to how the light slot gets along with the recipe book.
+
+### Changes
+- The **+** beside your chestplate is now **always visible**. Before, it disappeared while the recipe book was open, which made the slot look missing.
+- Clicking **+** while the recipe book is open now closes the book and opens the light slot.
+- Opening the recipe book while the light slot is open tucks the slot away.
+
+### Install
+Replace the old `torch_slot` jar in your `mods` folder with `torch_slot-1.0.1.jar`, on both client and server. Your worn light items are kept.
 ```
 
 ### Release: v1.0.0

@@ -7,7 +7,7 @@ where the risky parts are, and how to test and release it. For copy-paste store/
 | | |
 |---|---|
 | **Mod** | Torch Slot (`torch_slot`, package `com.torchslot`) |
-| **Version** | 1.0.0 |
+| **Version** | 1.0.1 |
 | **Minecraft** | Java Edition 26.3 |
 | **Loader** | NeoForge 26.3.0.6-beta (ModDevGradle 2.0.147) |
 | **Side** | Required on **both** client and server |
@@ -20,7 +20,8 @@ where the risky parts are, and how to test and release it. For copy-paste store/
 - Source is pushed to `main` (commit `796ca35`).
 - It compiles. Every mixin was checked in a dev client by force-loading all mixin targets, with no errors.
 - **Not yet play-tested in-game.** Use the [test checklist](#test-checklist) before the first release.
-- No GitHub release exists yet. The jar builds to `build/libs/torch_slot-1.0.0.jar`.
+- v1.0.0 is released. v1.0.1 (the "+" and recipe book now take turns) is ready to release; the jar builds to `build/libs/torch_slot-1.0.1.jar`.
+- Version history is in [CHANGELOG.md](CHANGELOG.md).
 
 ## What it does
 
@@ -69,7 +70,9 @@ uses (4× scale). Replace them with real screenshots for the store pages.
 
   ![ghost icons: chestplate, shield, lantern](docs/images/ghost-icons.png)
 
-- **Recipe book:** while it's open, the tab and "+" hide, because the book covers that area.
+- **Recipe book:** the book and the tab share the same spot, so they take turns. The "+" is always
+  shown. Clicking it while the book is open closes the book and pops out the tab. Opening the book
+  while the tab is out tucks the tab away.
 - **Creative inventory tab:** the slot is always visible to the right of the armor, mirroring the
   offhand slot on the left. There's no "+" there.
 - **Open/closed memory:** the tab remembers whether it's open until you quit the game. It starts closed.
@@ -145,7 +148,7 @@ open, so shift-clicking torches around your inventory would quietly put one away
 
 | Piece | What it does |
 |---|---|
-| `LightSlotUi` | Stores the open/closed state. Draws the pop-out panel and the creative slot frame. Hit-tests the panel. Draws the empty-slot tooltip. |
+| `LightSlotUi` | Stores the open/closed state. Draws the pop-out panel and the creative slot frame. Hit-tests the panel. Draws the empty-slot tooltip. Makes the tab and recipe book take turns: "+" closes the book on the next frame by toggling it and re-running the screen's `init` (`ScreenInvoker.rebuildWidgets`), and opening the book closes the tab. |
 | `LightSlotToggle` | The "+"/"−" button (`AbstractButton`, 7×7). Moves itself every frame, because the GUI shifts when the recipe book opens. |
 | `InventoryScreenMixin` | Draws the panel right after the screen background but **before** the inventory texture, so the panel looks like it slides out from behind the GUI. |
 | `AbstractRecipeBookScreenMixin` | `hasClickedOutside` returns false over the panel, so clicking the tab's border with an item on the cursor doesn't throw the item. |
@@ -230,6 +233,7 @@ src/main/java/com/torchslot/
       EntityRendererMixin.java               per-frame entity light
       InventoryScreenMixin.java              draw the panel behind the GUI
       LightCoordsUtilMixin.java              block/terrain light
+      ScreenInvoker.java                     rebuildWidgets (re-layout after closing the book)
 src/main/resources/
   torch_slot.mixins.json
   assets/torch_slot/lang/en_us.json
@@ -248,7 +252,7 @@ docs/images/                                   UI mockups used in this doc
 | **Not visible on the body** | Nothing is drawn on the player model yet. |
 | **Creative edits** | A creative player can put *any* item in the slot through the creative packet path. Harmless, because non-lights give 0 light. |
 | **Window edge** | On very small windows or high GUI scale, the pop-out tab can run off the left edge of the screen. |
-| **Recipe book** | Hides the tab, by design. |
+| **Recipe book** | Shares the tab's spot. Opening one closes the other. In a very narrow window the book covers the whole inventory, "+" included, as vanilla's book does. |
 
 ## Test checklist
 
@@ -260,7 +264,8 @@ Run `./gradlew runClient`, make a survival world, and check:
 - [ ] Non-light items are refused. Torch, lantern and glowstone are accepted, one at a time.
 - [ ] Clicking the tab's border with an item on the cursor does **not** throw the item.
 - [ ] Clicking "+" while holding an item on the cursor doesn't drop or place it.
-- [ ] Opening the recipe book hides the tab and "+". Closing it brings them back.
+- [ ] With the tab out, opening the recipe book tucks the tab away. The "+" stays visible.
+- [ ] With the book open, clicking "+" closes the book and pops out the tab, and the recipe button moves back.
 - [ ] At night or in a cave, the light fades in. Walking moves it smoothly, with no visible steps.
 - [ ] Your hand and nearby mobs brighten and dim smoothly as you move.
 - [ ] Removing the item fades the light out.
@@ -275,7 +280,7 @@ Run `./gradlew runClient`, make a survival world, and check:
 ## Build and release
 
 ```
-./gradlew build                       # -> build/libs/torch_slot-1.0.0.jar
+./gradlew build                       # -> build/libs/torch_slot-<mod_version>.jar
 ```
 
 - Gradle runs on JDK 21 (see `org.gradle.java.home` in `gradle.properties`), and the mod compiles

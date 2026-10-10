@@ -7,7 +7,7 @@ light-emitting block in it, and you light up the world around you as you move.
 
 - **Minecraft:** Java Edition 26.3
 - **Loader:** NeoForge 26.3.0.6-beta
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 
 **Download:** grab the latest `.jar` from the [Releases page](../../releases/latest).
 
@@ -15,7 +15,7 @@ light-emitting block in it, and you light up the world around you as you move.
 
 - **Survival inventory:** click the small **+** on the left edge, beside the chestplate slot. A tab
   pops out with the light slot. The empty slot shows a ghost lantern outline. Click **−** to tuck it
-  away again. The tab hides while the recipe book is open.
+  away again. The tab and the recipe book share the same spot, so opening one closes the other.
 - **Creative inventory tab:** the slot is always shown, to the right of the armor.
 - The slot holds one item. It accepts any block that gives off light, plus lava buckets.
 - You give off the item's own light level: lantern 15, torch 14, soul torch 10, redstone torch 7, and so on.

@@ -13,7 +13,8 @@
     "client.CreativeModeInventoryScreenMixin",
     "client.EntityRendererMixin",
     "client.InventoryScreenMixin",
-    "client.LightCoordsUtilMixin"
+    "client.LightCoordsUtilMixin",
+    "client.ScreenInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
